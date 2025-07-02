@@ -26,3 +26,7 @@
 ## 🛠 Setup
 
 1. Clone repo:
+2. Run:
+```bash
+bash setup/install.sh
+bash scripts/nuclei-wrapper.sh
