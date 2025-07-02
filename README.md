@@ -16,11 +16,14 @@
 ---
 ---
 
+![Scan Summary](https://img.shields.io/badge/Latest%20Scan-Pending-blueviolet?logo=nuclei)
+
+
 📊 **Last Scan Summary**
 
 - 🔍 Target: https://example.com
 - 📅 Date: 2025-07-02
-- 📁 Report: [View results/2025-07-02_07-21.txt](results/2025-07-02_07-21.txt)
+- 📁 Report: [View results/2025-07-02_07-21.txt](results/2025-07-02_07-21.txt)]
 
 ## 🚀 Features
 
