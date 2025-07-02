@@ -1,0 +1,49 @@
+id: wordpress-mailchimp-for-wp
+
+info:
+  name: MC4WP' Mailchimp for WordPress Detection
+  author: ricardomaia
+  severity: info
+  reference:
+    - https://wordpress.org/plugins/mailchimp-for-wp/
+  metadata:
+    plugin_namespace: mailchimp-for-wp
+    wpscan: https://wpscan.com/plugin/mailchimp-for-wp
+  tags: tech,wordpress,wp-plugin,top-100,top-200
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/wp-content/plugins/mailchimp-for-wp/readme.txt"
+
+    payloads:
+      last_version: helpers/wordpress/plugins/mailchimp-for-wp.txt
+
+    extractors:
+      - type: regex
+        part: body
+        internal: true
+        name: internal_detected_version
+        group: 1
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+
+      - type: regex
+        part: body
+        name: detected_version
+        group: 1
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+
+    matchers-condition: or
+    matchers:
+      - type: dsl
+        name: "outdated_version"
+        dsl:
+          - compare_versions(internal_detected_version, concat("< ", last_version))
+
+      - type: regex
+        part: body
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+# digest: 4a0a00473045022055d6cd169d303f44dbd8c09980109c8681adbfb8528b663b2281d82492063726022100bce3c126b909a1352acb880d8b114cda33060ca85b4f4a765d96f8d9e2cd7afa:922c64590222798bb761d5b6d8e72950

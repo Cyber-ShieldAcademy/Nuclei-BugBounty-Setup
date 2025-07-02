@@ -1,0 +1,49 @@
+id: wordpress-ninja-forms
+
+info:
+  name: Ninja Forms – The Contact Form Builder That Grows With You Detection
+  author: ricardomaia
+  severity: info
+  reference:
+    - https://wordpress.org/plugins/ninja-forms/
+  metadata:
+    plugin_namespace: ninja-forms
+    wpscan: https://wpscan.com/plugin/ninja-forms
+  tags: tech,wordpress,wp-plugin,top-100,top-200
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/wp-content/plugins/ninja-forms/readme.txt"
+
+    payloads:
+      last_version: helpers/wordpress/plugins/ninja-forms.txt
+
+    extractors:
+      - type: regex
+        part: body
+        internal: true
+        name: internal_detected_version
+        group: 1
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+
+      - type: regex
+        part: body
+        name: detected_version
+        group: 1
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+
+    matchers-condition: or
+    matchers:
+      - type: dsl
+        name: "outdated_version"
+        dsl:
+          - compare_versions(internal_detected_version, concat("< ", last_version))
+
+      - type: regex
+        part: body
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+# digest: 4a0a004730450221008897d1d0883eada326f98861125aa7be3d4983d177c7a87582b0cc27caf07537022025b68ccc87075185a237399dc1d23aac23fc1463540f0befef6eea9381d7b2ba:922c64590222798bb761d5b6d8e72950

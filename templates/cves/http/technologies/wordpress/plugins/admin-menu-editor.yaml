@@ -1,0 +1,49 @@
+id: wordpress-admin-menu-editor
+
+info:
+  name: Admin Menu Editor Detection
+  author: ricardomaia
+  severity: info
+  reference:
+    - https://wordpress.org/plugins/admin-menu-editor/
+  metadata:
+    plugin_namespace: admin-menu-editor
+    wpscan: https://wpscan.com/plugin/admin-menu-editor
+  tags: tech,wordpress,wp-plugin,top-200
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/wp-content/plugins/admin-menu-editor/readme.txt"
+
+    payloads:
+      last_version: helpers/wordpress/plugins/admin-menu-editor.txt
+
+    extractors:
+      - type: regex
+        part: body
+        internal: true
+        name: internal_detected_version
+        group: 1
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+
+      - type: regex
+        part: body
+        name: detected_version
+        group: 1
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+
+    matchers-condition: or
+    matchers:
+      - type: dsl
+        name: "outdated_version"
+        dsl:
+          - compare_versions(internal_detected_version, concat("< ", last_version))
+
+      - type: regex
+        part: body
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+# digest: 490a00463044022004b233237bf40dc1d5c55f9fdd8aac25d17c24b11024e801212cb6146de7a9e702206de544cda05b6fd15cfbb2eac46b4c82ff952a1f5a0c68bf9dda96f8a01d4239:922c64590222798bb761d5b6d8e72950

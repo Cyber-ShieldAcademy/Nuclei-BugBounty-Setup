@@ -1,0 +1,49 @@
+id: wordpress-svg-support
+
+info:
+  name: SVG Support Detection
+  author: ricardomaia
+  severity: info
+  reference:
+    - https://wordpress.org/plugins/svg-support/
+  metadata:
+    plugin_namespace: svg-support
+    wpscan: https://wpscan.com/plugin/svg-support
+  tags: tech,wordpress,wp-plugin,top-100,top-200
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/wp-content/plugins/svg-support/readme.txt"
+
+    payloads:
+      last_version: helpers/wordpress/plugins/svg-support.txt
+
+    extractors:
+      - type: regex
+        part: body
+        internal: true
+        name: internal_detected_version
+        group: 1
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+
+      - type: regex
+        part: body
+        name: detected_version
+        group: 1
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+
+    matchers-condition: or
+    matchers:
+      - type: dsl
+        name: "outdated_version"
+        dsl:
+          - compare_versions(internal_detected_version, concat("< ", last_version))
+
+      - type: regex
+        part: body
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+# digest: 4b0a00483046022100cade612ff1d78d47a3397ac41e3e1f6401c1fa55e700df6d1a20cb08b9840b2b0221009fd57e3e47427c13e4b5862ad6078e8506e993324addc2b45a3718ff94e325b8:922c64590222798bb761d5b6d8e72950

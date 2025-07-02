@@ -1,0 +1,49 @@
+id: wordpress-official-facebook-pixel
+
+info:
+  name: Meta pixel for WordPress Detection
+  author: ricardomaia
+  severity: info
+  reference:
+    - https://wordpress.org/plugins/official-facebook-pixel/
+  metadata:
+    plugin_namespace: official-facebook-pixel
+    wpscan: https://wpscan.com/plugin/official-facebook-pixel
+  tags: tech,wordpress,wp-plugin,top-200
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/wp-content/plugins/official-facebook-pixel/readme.txt"
+
+    payloads:
+      last_version: helpers/wordpress/plugins/official-facebook-pixel.txt
+
+    extractors:
+      - type: regex
+        part: body
+        internal: true
+        name: internal_detected_version
+        group: 1
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+
+      - type: regex
+        part: body
+        name: detected_version
+        group: 1
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+
+    matchers-condition: or
+    matchers:
+      - type: dsl
+        name: "outdated_version"
+        dsl:
+          - compare_versions(internal_detected_version, concat("< ", last_version))
+
+      - type: regex
+        part: body
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+# digest: 4a0a00473045022100b645a3279b9d8be3585e777549c94424e42b6657f5b5d53727b8fa0f9c4d05d60220052447d3edbba959508da2d080c5e8cda3fe4a0ef4838891d4213101e1e96f82:922c64590222798bb761d5b6d8e72950

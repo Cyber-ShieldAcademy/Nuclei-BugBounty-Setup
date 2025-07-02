@@ -1,0 +1,49 @@
+id: wordpress-leadin
+
+info:
+  name: HubSpot – CRM, Email Marketing, Live Chat, Forms & Analytics Detection
+  author: ricardomaia
+  severity: info
+  reference:
+    - https://wordpress.org/plugins/leadin/
+  metadata:
+    plugin_namespace: leadin
+    wpscan: https://wpscan.com/plugin/leadin
+  tags: tech,wordpress,wp-plugin,top-200
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/wp-content/plugins/leadin/readme.txt"
+
+    payloads:
+      last_version: helpers/wordpress/plugins/leadin.txt
+
+    extractors:
+      - type: regex
+        part: body
+        internal: true
+        name: internal_detected_version
+        group: 1
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+
+      - type: regex
+        part: body
+        name: detected_version
+        group: 1
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+
+    matchers-condition: or
+    matchers:
+      - type: dsl
+        name: "outdated_version"
+        dsl:
+          - compare_versions(internal_detected_version, concat("< ", last_version))
+
+      - type: regex
+        part: body
+        regex:
+          - '(?i)Stable.tag:\s?([\w.]+)'
+# digest: 4a0a004730450221009fd508656f814693303a6145979f5e1010f18d2576a33296dadee9d8322b366202204570a397374c32d85f8d9e59e274ab390e77379165eee11ef8410699f2267301:922c64590222798bb761d5b6d8e72950

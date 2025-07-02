@@ -1,0 +1,61 @@
+id: sql-server-dump
+
+info:
+  name: SQL Server - Dump Files
+  author: userdehghani
+  severity: medium
+  description: |
+    A SQL Server dump file was found
+  classification:
+    cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N
+    cvss-score: 5.3
+    cwe-id: CWE-200
+  metadata:
+    max-request: 21
+  tags: exposure,backup,sql-server
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}{{paths}}"
+
+    payloads:
+      paths:
+        - "/sa.bak"
+        - "/wwwroot.bak"
+        - "/backup.bak"
+        - "/database.bak"
+        - "/data.bak"
+        - "/db_backup.bak"
+        - "/dbdump.bak"
+        - "/db.bak"
+        - "/dump.bak"
+        - "/{{Hostname}}.bak"
+        - "/{{Hostname}}_db.bak"
+        - "/localhost.bak"
+        - "/mysqldump.bak"
+        - "/mysql.bak"
+        - "/site.bak"
+        - "/sql.bak"
+        - "/temp.bak"
+        - "/translate.bak"
+        - "/users.bak"
+        - "/www.bak"
+        - "/wp-content/uploads/dump.bak"
+        - "/wp-content/mysql.bak"
+
+    headers:
+      Range: "bytes=0-500"
+    max-size: 500 # Size in bytes - Max Size to read from server response
+
+    matchers-condition: and
+    matchers:
+      - type: binary
+        part: body
+        binary:
+          - "54415045" # Microsoft Tape Format
+
+      - type: status
+        status:
+          - 200
+# digest: 4a0a00473045022100e341b1798604e5e3ca01d082c05ced24c13e7473e2dffae0474c0cb4aa6c21ba02200cef890bf429306ca17259beffb83f7a56cf598d35660e67bb3488a6403f08ae:922c64590222798bb761d5b6d8e72950

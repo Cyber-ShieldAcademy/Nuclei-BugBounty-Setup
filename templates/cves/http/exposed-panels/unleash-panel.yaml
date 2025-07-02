@@ -1,0 +1,40 @@
+id: unleash-panel
+
+info:
+  name: Unleash Panel - Detect
+  author: userdehghani
+  severity: info
+  description: |
+    Open-source feature management solution built for developers.
+  reference:
+    - https://www.getunleash.io/
+  metadata:
+    verified: true
+    max-request: 3
+    shodan-query: http.favicon.hash:-608690655
+  tags: panel,unleash,login,detect
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/login"
+      - "{{BaseURL}}/sign-in"
+      - "{{BaseURL}}/favicon.ico"
+
+    stop-at-first-match: true
+    matchers-condition: or
+    matchers:
+      - type: word
+        part: body
+        words:
+          - '<title>Unleash'
+          - 'content="unleash'
+          - 'alt="getunleash'
+          - 'Sign-in - Unleash hosted'
+        case-insensitive: true
+        condition: or
+
+      - type: dsl
+        dsl:
+          - "status_code==200 && (\"-608690655\" == mmh3(base64_py(body)))"
+# digest: 4b0a0048304602210094804abd2b9e2a083841b5843b48d96b1c63945b936e4fb00d39ce759c00afc10221009ab69aebddc997579f3463cd22e42dbc0634a2c3e3a6b9f18a4e8a4d3c373313:922c64590222798bb761d5b6d8e72950
