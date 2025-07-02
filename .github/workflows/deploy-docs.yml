@@ -1,4 +1,4 @@
-name: Deploy MkDocs Docs Site
+name: 🚀 Deploy MkDocs Docs Site
 
 on:
   push:
@@ -9,20 +9,24 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: docs-site
 
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
-      - name: Install Dependencies
+      - name: 📦 Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install mkdocs mkdocs-material
 
-      - name: Deploy to GitHub Pages
-        run: mkdocs gh-deploy --force
+      - name: 🚀 Deploy MkDocs
+        run: |
+          mkdocs gh-deploy --force

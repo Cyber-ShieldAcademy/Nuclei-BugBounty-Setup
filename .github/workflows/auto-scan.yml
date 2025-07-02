@@ -1,31 +1,38 @@
-name: Auto Nuclei Scan
+name: 🔁 Auto Nuclei Scan
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 3 * * *' # Daily at 3 AM UTC
+    - cron: '0 2 * * *'  # Runs daily at 2:00 UTC
 
 jobs:
   scan:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+    defaults:
+      run:
+        working-directory: ./  # project root
 
-      - name: Set up Go
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v3
+
+      - name: ⚙️ Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.22'
+          go-version: '1.21'
 
-      - name: Install Nuclei
+      - name: 📦 Install Nuclei
         run: |
-          go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+          go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+          mkdir -p results
+          echo "https://scanme.sh" > targets.txt
 
-      - name: Run Scan
-        run: bash scripts/nrun.sh cves https://scanme.sh
+      - name: 🚀 Run Scan
+        run: |
+          ~/.go/bin/nuclei -l targets.txt -o results/auto-scan-$(date +%F).txt || true
 
-      - name: Upload results
-        uses: actions/upload-artifact@v4
+      - name: 📤 Upload Results
+        uses: actions/upload-artifact@v3
         with:
-          name: nuclei-results
+          name: scan-results
           path: results/*.txt
