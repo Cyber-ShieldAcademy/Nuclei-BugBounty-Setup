@@ -18,6 +18,31 @@
 
 ![Last Scan](https://img.shields.io/badge/Last%20Scan-2025--07--02-blueviolet?style=flat&logo=nuclei)
 
+---
+---
+
+![Auto Scan](https://github.com/Cyber-ShieldAcademy/Nuclei-BugBounty-Setup/actions/workflows/auto-scan.yml/badge.svg)
+![Deploy Docs](https://github.com/Cyber-ShieldAcademy/Nuclei-BugBounty-Setup/actions/workflows/deploy-docs.yml/badge.svg)
+
+## 📊 Dashboard Overview
+
+| Metric        | Value                            |
+|---------------|----------------------------------|
+| 🔁 Last Scan  | 2025-07-02                        |
+| ✅ Findings   | 0 critical issues                 |
+| 📂 Templates  | CVEs only (filtered)             |
+| 📄 Report     | [HTML Report](results/2025-07-02_08-18_cves.html) |
+
+> 🔄 This dashboard can be auto-updated in future using scripts or CI workflows.
+
+---
+
+## 📄 Last Scan Summary
+
+- 🔍 Target: https://example.com  
+- 📅 Date: 2025-07-02  
+- 📁 Text Report: [View results/2025-07-02_08-18_cves.txt](results/2025-07-02_08-18_cves.txt)
+
 
 
 📊 **Last Scan Summary**
