@@ -80,3 +80,25 @@ id:
 tags:
   - headless
   - fuzz
+
+## Path: ~/Downloads/Nuclei-BugBounty-Setup/README.md
+
+### 🚀 Sample Workflow
+```bash
+subfinder -d example.com | naabu -silent | httpx -silent | nuclei -t ~/nuclei/nuclei-templates
+```
+
+### 🔄 Updating Tools
+Run periodically:
+```bash
+go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+nuclei -ut -update-templates
+```
+
+### 📦 Included Tools
+| Tool | Function |
+|------|----------|
+| Nuclei | Template-based scanning |
+| Subfinder | Subdomain discovery |
+| ... | ... |
+
