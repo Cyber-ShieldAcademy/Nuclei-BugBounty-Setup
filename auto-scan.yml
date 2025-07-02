@@ -1,1 +1,6 @@
 https://github.com/Cyber-ShieldAcademy/Nuclei-BugBounty-Setup/actions/workflows/auto-scan.yml/badge.svg
+- name: Upload Scan HTML Report
+  uses: actions/upload-artifact@v4
+  with:
+    name: nuclei-html-report
+    path: results/*.html
