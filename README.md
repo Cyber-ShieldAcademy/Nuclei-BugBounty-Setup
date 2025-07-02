@@ -43,3 +43,15 @@
 git clone https://github.com/Cyber-ShieldAcademy/Nuclei-BugBounty-Setup.git
 cd Nuclei-BugBounty-Setup
 
+## 🚫 Ignored Templates
+
+To reduce noise and irrelevant results, we exclude some templates using `nuclei-ignore.yaml`.
+
+Example:
+
+```yaml
+id:
+  - cves/2020/CVE-2020-0000
+tags:
+  - headless
+  - fuzz
