@@ -16,7 +16,8 @@
 ---
 ---
 
-![Scan Summary](https://img.shields.io/badge/Latest%20Scan-Pending-blueviolet?logo=nuclei)
+![Last Scan](https://img.shields.io/badge/Last%20Scan-2025--07--02-blueviolet?style=flat&logo=nuclei)
+
 
 
 📊 **Last Scan Summary**
