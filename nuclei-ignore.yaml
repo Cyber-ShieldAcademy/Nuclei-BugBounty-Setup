@@ -1,0 +1,6 @@
+id:
+  - cves/2021/CVE-2021-12345
+  - vulnerabilities/wp/wp-xyz-info-leak
+tags:
+  - headless
+  - fuzz

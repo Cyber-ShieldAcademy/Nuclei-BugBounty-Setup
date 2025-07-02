@@ -9,5 +9,5 @@ if [[ -z "$CATEGORY" || -z "$TARGET" ]]; then
 fi
 
 OUTPUT="results/$(date +%F_%H-%M)_$CATEGORY.txt"
-nuclei -u "$TARGET" -t "templates/$CATEGORY" -o "$OUTPUT"
+nuclei -l "$INPUT" -t "$TEMPLATE_PATH" -o "$OUTPUT" -ni nuclei-ignore.yaml
 echo "✅ Scan complete. Output saved to $OUTPUT"
