@@ -1,0 +1,41 @@
+site_name: Nuclei Bug Bounty Setup
+site_description: "Automation Toolkit for Bug Bounty using ProjectDiscovery Nuclei"
+site_author: "Cyber Shield Academy"
+repo_url: https://github.com/Cyber-ShieldAcademy/Nuclei-BugBounty-Setup
+repo_name: Nuclei-BugBounty-Setup
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  logo: images/logo.png         # Optional: Add your logo here
+  favicon: images/favicon.png   # Optional: Add your favicon here
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: indigo
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: indigo
+  features:
+    - navigation.tabs
+    - navigation.top
+    - search.highlight
+    - search.suggest
+
+nav:
+  - 🛡 Home: index.md
+  - ⚙ Setup: setup.md
+  - 🔄 Flow: flow.md
+  - 📁 Templates: templates.md
+  - 🧠 Cheatsheet: cheatsheet.md
+  - ❓ FAQ: faq.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Cyber-ShieldAcademy
+    - icon: fontawesome/brands/patreon
+      link: https://patreon.com/CyberShieldAcademy
+
