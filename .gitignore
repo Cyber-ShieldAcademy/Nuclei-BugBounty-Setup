@@ -1,0 +1,10 @@
+# Python virtualenv
+venvs/
+__pycache__/
+
+# MkDocs build directory
+docs-site/site/
+
+# OS files
+.DS_Store
+Thumbs.db
