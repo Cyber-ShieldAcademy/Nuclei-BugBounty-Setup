@@ -23,7 +23,7 @@
 
 - 🔍 Target: https://example.com
 - 📅 Date: 2025-07-02
-- 📁 Report: [View results/2025-07-02_07-38_cves.txt](results/2025-07-02_07-38_cves.txt)
+- 📁 Report: [View results/2025-07-02_08-18_cves.txt](results/2025-07-02_08-18_cves.txt)
 
 ## 🚀 Features
 
