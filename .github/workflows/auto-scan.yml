@@ -1,9 +1,9 @@
-name: Safe Target Auto-Scan
+name: Auto Nuclei Scan
 
 on:
-  workflow_dispatch:  # Manual trigger
+  workflow_dispatch:
   schedule:
-    - cron: '0 4 * * *'  # Daily at 04:00 UTC
+    - cron: '0 3 * * *' # Daily at 3 AM UTC
 
 jobs:
   scan:
@@ -15,20 +15,17 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.21'
+          go-version: '1.22'
 
       - name: Install Nuclei
-        run: go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
-
-      - name: Run scan
         run: |
-          echo "https://scanme.sh" > targets.txt
-          nuclei -l targets.txt -o results/latest-scan.txt || true
+          go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
 
-      - name: Commit scan results
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add results/latest-scan.txt || true
-          git commit -m "🤖 Auto Scan: $(date '+%Y-%m-%d')" || echo "Nothing to commit"
-          git push || true
+      - name: Run Scan
+        run: bash scripts/nrun.sh cves https://scanme.sh
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuclei-results
+          path: results/*.txt
